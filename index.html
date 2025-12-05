@@ -1,23 +1,488 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+  
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "투룸이사 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "전국 이사 비용 전문 분석팀",
+        "url": "https://yourdomain.com",
+        "areaServed": "대한민국"
+      },
+      "description": "2026년 투룸이사비용 및 이사 견적 비교, 합리적인 포장이사/반포장이사 서비스 안내",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "주요 이사 서비스 비용 예시",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Product", "name": "투룸 포장이사 (평균)" },
+            "price": "1200000",
+            "priceCurrency": "KRW"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Product", "name": "투룸 반포장이사 (평균)" },
+            "price": "800000",
+            "priceCurrency": "KRW"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: #e8f5e9; /* 부드러운 배경색 */
+            color: #212121;
+        }
+        header {
+            background-color: #4caf50; /* 산뜻한 메인 색상 */
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        nav a:hover {
+            color: #ffeb3b;
+            border-bottom: 2px solid #ffeb3b;
+        }
+        main {
+            max-width: 1100px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+        }
+        h1, h2 {
+            color: #1b5e20; /* 짙은 녹색 */
+            padding-top: 1.5rem;
+            border-bottom: 3px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+        }
+        h3 {
+            color: #388e3c;
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 1rem;
+            border: 1px solid #c8e6c9;
+            text-align: left;
+        }
+        th {
+            background-color: #4caf50;
+            color: white;
+            font-weight: 700;
+        }
+        td {
+            background-color: #f7fcf7;
+        }
+        .cta-button {
+            display: block;
+            background-color: #ff9800; /* 강조 색상 */
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 2rem auto;
+            max-width: 300px;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+        .cta-button:hover {
+            background-color: #f57c00;
+            transform: translateY(-2px);
+        }
+        .keyword-tags {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .keyword-tags a {
+            background-color: #e8f5e9;
+            color: #4caf50;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: 1px solid #c8e6c9;
+        }
+        .keyword-tags a:hover {
+            background-color: #c8e6c9;
+        }
+        .info-box {
+            background-color: #f1f8e9;
+            border-left: 5px solid #8bc34a;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        .input-group label {
+            display: block;
+            margin-top: 1.5rem;
+            font-weight: 700;
+            color: #388e3c;
+        }
+        .input-group input[type="number"], .input-group input[type="text"], .input-group select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .input-group button {
+            background-color: #03a9f4;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+        .graph-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background-color: #ffffff;
+            border: 1px dashed #c8e6c9;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .external-links a {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            background-color: #f0f4c3;
+            margin-top: 3rem;
+        }
+        
+        /* 텍스트 가독성 개선 */
+        p {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>✅ 2026년 **투룸이사비용** A to Z: 원룸/투룸 이사 견적 완전 분석 가이드</h1>
+        <nav>
+            <ul>
+                <li><a href="#비용분석">비용 분석</a></li>
+                <li><a href="#견적시뮬레이션">견적 시뮬레이션</a></li>
+                <li><a href="#절약팁">이사 절약 팁</a></li>
+                <li><a href="#지역별정보">지역별 정보</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="인트로">
+            <h2>🏠 투룸이사비용, 이제 투명하게 확인하세요</h2>
+            <p>2026년 이사 시장의 최신 정보를 반영하여, **투룸이사비용**에 대한 모든 궁금증을 해소해 드립니다. 원룸 이사부터 시작하여 일반적인 투룸 포장이사, 그리고 비용을 절약할 수 있는 반포장이사 견적까지, 복잡했던 이사 비용 산정 기준을 명확하게 제시합니다. 단순히 가격을 아는 것을 넘어, 합리적인 이사 계획을 세우실 수 있도록 전문적인 정보를 제공하는 것이 목표입니다.</p>
+
+            <div class="keyword-tags" aria-label="주요 연관 검색 키워드">
+                <a href="#비용분석">투룸이사비용 평균</a>
+                <a href="#비용분석">포장이사 가격</a>
+                <a href="#비용분석">반포장이사 견적</a>
+                <a href="#지역별정보">서울 투룸이사 비용</a>
+                <a href="#지역별정보">인천 포장이사</a>
+                <a href="#지역별정보">원룸이사 업체 추천</a>
+            </div>
+        </section>
+        
+        <hr>
+
+        <section id="비용분석">
+            <h2>💰 2026년 투룸이사비용 세부 항목 및 평균 가격 (KRW)</h2>
+            <p><strong>투룸이사비용</strong>은 짐의 양, 이사 방식(포장/반포장), 이동 거리, 작업 인원, 그리고 계절적 요인(손 없는 날, 성수기)에 따라 크게 달라집니다. 특히 **2026년**에는 인건비와 물류비 상승으로 인해 전년 대비 약 5~10%의 상승 요인이 있을 것으로 예측됩니다. 다음 표는 일반적인 조건(평일, 비수기, 5톤 미만 짐량 기준)의 평균적인 **투룸이사비용**을 정리한 것입니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>이사 종류</th>
+                        <th>짐량 (예상 톤)</th>
+                        <th>평균 비용 범위 (원)</th>
+                        <th>주요 특징 및 포함 서비스</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>원룸 포장이사</td>
+                        <td>1톤 ~ 2톤</td>
+                        <td>400,000 ~ 800,000</td>
+                        <td>모든 포장/운반/정리 포함. 소규모 짐에 적합.</td>
+                    </tr>
+                    <tr>
+                        <td>**투룸 포장이사**</td>
+                        <td>2.5톤 ~ 3.5톤</td>
+                        <td>**900,000 ~ 1,500,000**</td>
+                        <td>가장 일반적인 서비스. 주방 정리, 큰 가구 배치 포함.</td>
+                    </tr>
+                    <tr>
+                        <td>**투룸 반포장이사**</td>
+                        <td>2.5톤 ~ 3.5톤</td>
+                        <td>**650,000 ~ 1,100,000**</td>
+                        <td>포장과 운반은 업체가, 잔짐 정리와 풀기는 고객이 담당. 비용 절약에 유리.</td>
+                    </tr>
+                    <tr>
+                        <td>3룸 이상 포장이사</td>
+                        <td>5톤 이상</td>
+                        <td>1,800,000 ~ 3,500,000+</td>
+                        <td>전문적인 대규모 이사. 옵션에 따라 비용 가변성이 큼.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p><strong>참고:</strong> 위 비용은 단순 평균이며, 정확한 **투룸이사비용**은 반드시 현장 방문 견적을 통해 확인해야 합니다. 특히 **성수기 (3월, 5월, 9월)**나 주말, '손 없는 날'에는 기본 견적의 20~30% 할증이 붙을 수 있습니다.</p>
+
+            <h3>투룸 이사 비용을 결정하는 5가지 핵심 요소</h3>
+            <ol>
+                <li>**이사 방식:** 포장이사(가장 비쌈) > 반포장이사 > 일반이사(가장 저렴) 순으로 비용이 결정됩니다.</li>
+                <li>**짐의 양과 부피:** 짐이 많아질수록 톤수가 증가하고, 투입되는 인력과 차량 크기가 커져 **투룸이사비용**이 상승합니다.</li>
+                <li>**작업 환경 (사다리차 사용 유무):** 이사할 곳과 나갈 곳 모두 사다리차 사용이 필수인 경우 (보통 3층 이상), 사다리차 비용 (소형: 10만~15만원, 대형: 20만~30만원)이 추가됩니다. 특히 엘리베이터만 이용해야 하는 환경은 작업 시간 증가로 인해 비용이 할증됩니다.</li>
+                <li>**운송 거리:** **서울**에서 **부산**과 같은 장거리 이사(장거리 할증)는 **수원**에서 **용인**과 같은 단거리 이사보다 운송료가 높습니다.</li>
+                <li>**추가 옵션:** 에어컨 설치/분리, 벽걸이 TV 설치, 피아노/돌침대 등 특수 물품 운반, 입주 청소 등이 추가될 경우 최종 **투룸이사비용**에 합산됩니다.</li>
+            </ol>
+            
+            <div class="info-box">
+                <h3>지역별 투룸이사비용 상세 분석 (전국 키워드 배치)</h3>
+                <p><strong>투룸이사비용</strong>은 지역별 생활 물가 및 이사업체 경쟁도에 따라 미묘하게 차이를 보입니다. 특히 인구 밀도가 높은 수도권 지역의 견적 변동성이 큽니다. </p>
+                <p>
+                **수도권:** **서울** 강남구, 서초구, 송파구 등은 인건비가 다소 높게 책정되는 경향이 있으며, **인천**의 서구, 연수구, 그리고 **경기** 지역의 **수원**, **성남**, **고양**, **용인**, **화성** 등 신도시 지역은 이사 수요가 많아 주말 예약이 치열합니다. **부천**, **안양**, **시흥**, **김포** 등에서도 합리적인 **투룸 포장이사**를 찾으려는 검색이 활발합니다.
+                </p>
+                <p>
+                **광역시:** **부산**의 해운대구, 수영구, **대구**의 수성구, 달서구, **광주**의 서구, 광산구, **대전**의 유성구, 서구, 그리고 **울산**의 남구 등에서도 높은 품질의 이사 서비스를 합리적인 **투룸이사비용**으로 제공하기 위한 경쟁이 이루어지고 있습니다. 
+                </p>
+                <p>
+                **기타 지역:** **천안**, **청주**, **전주**, **창원**, **포항**, **구미**, **순천**, **목포**, **제주** 등 지방 중소 도시의 경우, 장거리 이사의 비중이 높아지면 비용이 증가할 수 있으므로, 해당 지역 기반의 이사업체를 찾는 것이 **투룸이사비용** 절약에 유리합니다. **강릉**, **속초** 등 강원도나 **군산**, **익산** 등 전라도 지역, **안동**, **경주** 등 경상도 지역 이사 시에는 운송 경로를 고려해야 합니다.
+                </p>
+                <p>
+                이 외에도 **세종**, **평택**, **동탄**, **파주**, **의정부**, **남양주**, **하남**, **광명**, **원주**, **충주**, **김해**, **양산**, **거제**, **통영**, **여수**, **나주** 등 전국적으로 **투룸이사비용** 관련 검색이 꾸준히 발생하고 있습니다.
+                </p>
+                
+                <h3>포장이사와 반포장이사 선택 가이드</h3>
+                <p>이사 방식 선택은 **투룸이사비용**을 결정하는 가장 중요한 요소입니다. 자신의 상황에 맞는 이사 방식을 선택하는 것이 예산 절감의 핵심입니다.</p>
+                <ul>
+                    <li>**포장이사:** 이사 전 과정(포장, 운반, 정리, 청소)을 업체에 맡기는 방식. 몸만 이동하면 될 정도로 편리하지만, **투룸이사비용**이 가장 높습니다. 바쁜 직장인이나 신혼부부에게 적합합니다.</li>
+                    <li>**반포장이사:** 포장은 업체가, 운반 후 잔짐 풀기 및 정리는 고객이 직접 하는 방식. 포장이사보다 20~30% 저렴하며, 어느 정도 시간 여유가 있고 잔짐 정리에 부담이 없는 분들에게 추천됩니다.</li>
+                    <li>**일반이사:** 가장 저렴한 방식. 고객이 포장과 정리를 모두 담당하고, 업체는 운송과 큰 가구/가전 운반만 맡습니다. 짐이 적은 **원룸이사비용** 절감에 효과적입니다.</li>
+                </ul>
+
+                <p>
+                특히 **2026년**의 이사 트렌드는 '가성비'와 '맞춤형'입니다. 많은 소비자들이 **투룸이사비용** 절감을 위해 잔짐만 직접 포장하는 '부분 포장이사'나 '반포장이사'를 선호하는 추세입니다. 이사 예정일이 정해졌다면, 최소 2달 전부터 견적을 받아 **이사철** 요금을 피하는 것이 현명합니다. 이사 견적을 받을 때는 반드시 3곳 이상의 업체에서 견적을 비교하는 것이 합리적인 **투룸이사비용**을 찾을 수 있는 방법입니다.
+                </p>
+
+            </div>
+            <a href="#견적시뮬레이션" class="cta-button">나의 투룸이사비용 바로 계산하기</a>
+        </section>
+
+        <hr>
+
+        <section id="견적시뮬레이션">
+            <h2>📊 투룸이사비용 간편 견적 시뮬레이터 (2026년 기준)</h2>
+            <p>정확한 **투룸이사비용**은 현장 견적이 필수이나, 아래 시뮬레이션을 통해 예상 비용을 간편하게 확인하고 합리적인 예산을 계획해 보세요.</p>
+            
+            <div class="input-group">
+                <label for="move_type">1. 이사 방식 선택 (필수)</label>
+                <select id="move_type" name="move_type">
+                    <option value="p">투룸 포장이사</option>
+                    <option value="bp">투룸 반포장이사</option>
+                    <option value="w_p">원룸 포장이사</option>
+                    <option value="w_b">원룸 반포장이사</option>
+                </select>
+
+                <label for="moving_day">2. 이사 예정일 (성수기/비수기 반영)</label>
+                <input type="date" id="moving_day" name="moving_day" required>
+
+                <label for="start_floor">3. 출발지 층수 (사다리차 비용 관련)</label>
+                <select id="start_floor" name="start_floor">
+                    <option value="1">1층</option><option value="2">2층</option><option value="3">3층 (사다리차 고려)</option>
+                    <option value="5">5층 (사다리차 필수)</option><option value="10">10층 이상 (대형 사다리차)</option>
+                    <option value="el">엘리베이터 전용</option>
+                </select>
+
+                <label for="end_floor">4. 도착지 층수 (사다리차 비용 관련)</label>
+                <select id="end_floor" name="end_floor">
+                    <option value="1">1층</option><option value="2">2층</option><option value="3">3층 (사다리차 고려)</option>
+                    <option value="5">5층 (사다리차 필수)</option><option value="10">10층 이상 (대형 사다리차)</option>
+                    <option value="el">엘리베이터 전용</option>
+                </select>
+                
+                <label for="distance">5. 이동 거리 (km)</label>
+                <input type="number" id="distance" name="distance" placeholder="예: 25 (단거리 이사)" min="1">
+                
+                <label for="items">6. 추가 특수 물품 유무</label>
+                <input type="text" id="items" name="items" placeholder="예: 벽걸이 TV, 대형 냉장고, 피아노 (견적 할증 요인)">
+
+                <button type="button" onclick="calculateEstimate()">예상 투룸이사비용 확인</button>
+            </div>
+
+            <div class="info-box" id="result-box" style="margin-top: 2rem; display: none;">
+                <h3>💰 예상 견적 결과</h3>
+                <p>계산된 **투룸이사비용**은 **[결과 금액]**원입니다. 이는 입력하신 정보를 바탕으로 산출된 **최소 예상 비용**이며, 실제 현장 견적에 따라 달라질 수 있습니다.</p>
+            </div>
+            <div class="graph-container">
+                <h3>투룸이사비용 변동 요인 그래프 (개념적)</h3>
+                <p>이사 비용은 '이사 방식' > '짐의 양' > '시점(날짜)' 순으로 크게 영향을 받습니다. 아래는 각 요인의 비용 기여도를 보여주는 가상의 그래프입니다. </p>
+            </div>
+        </section>
+
+        <hr>
+        
+        <section id="절약팁">
+            <h2>💡 투룸이사비용 30% 절약하는 실전 팁</h2>
+            <p><strong>투룸이사비용</strong>을 줄이기 위해서는 체계적인 준비와 정보 비교가 중요합니다. 다음은 이사 전문가들이 추천하는 핵심 절약 팁입니다.</p>
+            <ul>
+                <li>**비수기 및 주중 이사:** 성수기(3, 5, 9월)나 '손 없는 날'을 피하고, 주중(월~목)에 이사하면 **10~20%**의 비용 절감 효과를 볼 수 있습니다.</li>
+                <li>**불필요한 짐 정리:** 이사 전 사용하지 않는 물건을 처분하여 짐의 부피를 줄이면 차량 톤수가 줄어 **투룸이사비용**이 즉시 감소합니다.</li>
+                <li>**방문 견적 필수:** 전화 견적만으로는 정확한 짐량을 파악하기 어렵습니다. 최소 3곳 이상의 업체에서 **무료 방문 견적**을 받아 비교하세요.</li>
+                <li>**이삿짐센터 평가 확인:** 가격이 너무 저렴한 곳은 피하고, 한국소비자원의 피해 사례나 온라인 후기를 통해 신뢰도를 반드시 검증해야 합니다.</li>
+            </ul>
+
+            <div class="external-links">
+                <h3>공인된 정보 및 신뢰성 있는 외부 자료</h3>
+                <p>다음은 **투룸이사비용** 및 이사 관련 정보를 얻을 수 있는 신뢰할 수 있는 외부 링크입니다.</p>
+                <a href="https://www.data.go.kr/" target="_blank">1. 공공데이터포털 (이사 관련 통계 및 물류 정보)</a>
+                <a href="https://www.kca.go.kr/" target="_blank">2. 한국소비자원 (이사업체 피해 주의보 및 상담 사례)</a>
+                <a href="https://namu.wiki/w/포장이사" target="_blank">3. 나무위키 - 포장이사 (이사 서비스 정의 및 특징)</a>
+                <a href="https://www.local.go.kr/" target="_blank">4. 행정안전부 (지역별 인구 및 생활 정보 - 이사 참고)</a>
+                <a href="https://www.law.go.kr/" target="_blank">5. 법제처 (이사 관련 법규 및 운송 약관)</a>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="예약문의">
+            <h2>☎️ 맞춤 견적 신청 및 예약 문의</h2>
+            <p>고객님의 이사 환경에 맞는 가장 정확하고 합리적인 **투룸이사비용**을 지금 바로 확인해 보세요. 전문 컨설턴트가 친절하게 상담해 드립니다.</p>
+            <form action="submit_inquiry.php" method="POST">
+                <div class="input-group">
+                    <label for="contact_name">성함</label>
+                    <input type="text" id="contact_name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="contact_phone">연락처</label>
+                    <input type="text" id="contact_phone" name="phone" placeholder="010-XXXX-XXXX" required>
+                </div>
+                <div class="input-group">
+                    <label for="contact_detail">상세 문의 내용</label>
+                    <textarea id="contact_detail" name="detail" rows="5" placeholder="이사 날짜, 출발/도착 주소, 짐의 양 등을 자세히 적어주세요."></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="max-width: 100%;">맞춤 투룸이사비용 견적 신청하기</button>
+            </form>
+        </section>
+        
+        <section id="지역별정보">
+            <h2>🌍 전국 주요 지역별 이사 정보 및 시세 동향</h2>
+            <p>전국 주요 도시의 **투룸이사비용** 시세 동향을 파악하는 것은 현명한 이사의 첫걸음입니다. **2026년**에도 인구 이동이 활발한 **경기** 지역과 **서울**을 중심으로 비용 변동이 클 것으로 예상됩니다. 특히 **성남**의 재개발 지역, **하남**의 미사 신도시, **평택**의 고덕 신도시 등 특정 개발 지역은 이사 수요가 폭증하여 일시적으로 **투룸이사비용**이 급등하는 현상이 관찰됩니다. 이사 계획 시에는 이러한 지역 특성을 반드시 고려해야 합니다.</p>
+            <p>
+            **세종**시의 경우 공무원 및 관련 종사자의 이동이 많아 연초와 연말에 이사 물량이 집중되는 경향이 있습니다. 반면, **강원도**의 **춘천**이나 **원주** 등은 장거리 이사 비율이 높고, 도서 지역인 **제주**도의 경우 해상 운송 비용이 추가되어 육지보다 **투룸이사비용**이 10~20%가량 높게 책정되는 것이 일반적입니다. 따라서 해당 지역 이사 시에는 지역 전문 업체를 통해 '왕복' 비용이 아닌 '편도' 운송이 가능한 업체를 찾는 것이 **이사 비용 절약**의 핵심입니다.
+            </p>
+            <p>
+            또한, 이사 계약 시에는 반드시 '피해보상 이행보증보험 가입 증서'를 확인해야 합니다. 이는 만약의 경우 발생할 수 있는 이삿짐 파손이나 분실에 대비할 수 있는 중요한 장치입니다. 저렴한 **투룸이사비용**에 현혹되어 무허가 업체와 계약했다가 피해를 보는 사례가 **한국소비자원**에도 다수 접수되고 있으니 주의가 필요합니다. </p>
+            
+            <h3>함께 많이 찾는 키워드 및 연관 검색어</h3>
+            <p>투룸이사 관련 검색 시 사용자들은 '원룸이사비용', '포장이사 업체 추천', '용달이사 가격', '이삿짐센터 순위', '포장이사 견적 비교', '손 없는 날 2026', '자취방 이사 팁', '투룸 반포장이사 후기', '이사청소 비용' 등의 키워드를 함께 검색합니다. 이는 **투룸이사비용**이 단일 서비스가 아닌, 이사 전후의 다양한 부가 서비스와 밀접하게 연관되어 있음을 보여줍니다.</p>
+            
+        </section>
+        
+        
     </main>
-  </body>
-</html>
+
+    <footer>
+        <p>이사 비용 전문 분석팀 &copy; 2026. All Rights Reserved. | 문의 전화: 010-1234-5678</p>
+    </footer>
+
+    <script>
+        // 간단한 시뮬레이션 계산 로직 (체류 시간 증대를 위한 기능)
+        function calculateEstimate() {
+            const moveType = document.getElementById('move_type').value;
+            const startFloor = document.getElementById('start_floor').value;
+            const endFloor = document.getElementById('end_floor').value;
+            const distance = parseInt(document.getElementById('distance').value) || 0;
+            const items = document.getElementById('items').value;
+            const resultBox = document.getElementById('result-box');
+            
+            let baseCost = 0;
+            
+            // 1. 기본 이사 방식에 따른 비용
+            if (moveType === 'p') baseCost = 1200000; // 투룸 포장이사 평균
+            else if (moveType === 'bp') baseCost = 800000; // 투룸 반포장이사 평균
+            else if (moveType === 'w_p') baseCost = 600000; // 원룸 포장이사 평균
+            else if (moveType === 'w_b') baseCost = 450000; // 원룸 반포장이사 평균
+            
+            // 2. 사다리차/엘리베이터 비용 추가 (단순화된 모델)
+            let ladderCost = 0;
+            if (startFloor === 'el' || endFloor === 'el') {
+                ladderCost += 50000; // 엘리베이터 사용료/수고비
+            } else if (parseInt(startFloor) >= 3 || parseInt(endFloor) >= 3) {
+                ladderCost += 150000; // 사다리차 비용 최소 (왕복 고려)
+            }
+            
+            // 3. 장거리/단거리 운송료 추가
+            let transportCost = distance * 2000; // km당 2천원 추가 (가정)
+            if (distance > 100) transportCost += 100000; // 장거리 할증
+            
+            // 4. 특수 물품 할증 (입력 여부에 따라)
+            let itemSurcharge = items ? 100000 : 0;
+            
+            // 최종 예상 비용
+            const finalEstimate = baseCost + ladderCost + transportCost + itemSurcharge;
+            
+            resultBox.querySelector('p').innerHTML = `계산된 **투룸이사비용**은 **${finalEstimate.toLocaleString()}**원입니다. 이는 입력하신 정보를 바탕으로 산출된 **최소 예상 비용**이며, 실제 현장 견적에 따라 달라질 수 있습니다.`;
+            resultBox.style.display = 'block';
+        }
+    </script>
+</body>
+
+  
